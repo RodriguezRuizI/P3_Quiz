@@ -155,13 +155,13 @@ exports.testCmd = (rl, id) => {
 * @param rl Objeto readline usado para implementar el CLI.
 */
 exports.playCmd = rl => {
-	let score = 0
-	let toBeResolved = [];
+	//let score = 0
+	//let toBeResolved = [];
 
 	if(toBeResolved.length === 0){
 		rl.prompt();
 	}else{
-		let id = 
+		//let id = 
 	}
 };
 
