@@ -143,10 +143,10 @@ exports.testCmd = (rl, id) => {
 			const quiz = model.getByIndex(id);
 			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
                 if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
-                    log("Su respuesta es:");
+                    log("Su respuesta es correcta.");
                     biglog('CORRECTA','green');
                 }else{
-					log('Su respuesta es:');
+					log('Su respuesta es incorrecta.');
 					biglog('INCORRECTA', 'red');
 				}
 				rl.prompt();
@@ -172,16 +172,33 @@ exports.playCmd = rl => {
 		toBeResolved[i]=i;
 		}
 
-	if(toBeResolved.length === 0){
-		log("Se han acabado las preguntas");
-		log("Fin del juego. Aciertos:");
-		biglog(score, 'magenta');
-		rl.prompt();
-	}else{
-		let id= Math.floor(Math.random()*toBeResolved.length);
-		toBeResolved.splice(id, 1);
-		let quiz = model.getByIndex(id);
-	}
+	const playStart = () =>{
+		if(toBeResolved.length === 0){
+			log("Se han acabado las preguntas");
+			log("Fin del juego. Aciertos:");
+			biglog(score, 'magenta');
+			rl.prompt();
+		}else{
+			let id= Math.floor(Math.random()*toBeResolved.length);
+			let quiz = model.getByIndex(id);
+			toBeResolved.splice(id, 1);
+			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
+                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                    score++;
+
+                    log("CORRECTO - Lleva " + score + " aciertos.");
+                    biglog('CORRECTA','green');
+                    playStart();
+                }else{
+					log('INCORRECTO');
+					log('Fin del juego. Aciertos:');
+					biglog(score, 'magenta');
+				}
+				rl.prompt();
+			});
+		}
+	};
+	playStart();
 };
 
 /**
