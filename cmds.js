@@ -140,7 +140,18 @@ exports.testCmd = (rl, id) => {
 		rl.prompt();
 	}else {
 		try{
-			rl.prompt();
+			const quiz = model.getByIndex(id);
+			rl.question( colorize(quiz.question, 'red' ), answer =>{
+				if(answer === quiz.answer){
+					log('Su respuesta es:');
+					biglog('CORRECTA', 'green');
+					rl.prompt();
+				}else{
+					log('Su respuesta es:');
+					biglog('INCORRECTA', 'red');
+					rl.prompt();
+				}
+			});
 		}catch(error){
 			errorlog(error.message);
 			rl.prompt();
