@@ -168,11 +168,11 @@ exports.playCmd = rl => {
 	let score = 0
 	let toBeResolved = [];
 
-	if(){
-		rl.prompt();
-	}else{
+	//if(){
+	//	rl.prompt();
+	//}else{
 		//let id = 
-	}
+	//}
 };
 
 /**
