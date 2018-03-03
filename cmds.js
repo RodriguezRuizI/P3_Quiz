@@ -141,9 +141,9 @@ exports.testCmd = (rl, id) => {
 	}else {
 		try{
 			const quiz = model.getByIndex(id);
-			rl.question(`${colorize(quiz.question, 'red')} `, question => {     
-                if(question.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
-                    log("Su respuesta es correcta");
+			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
+                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                    log("Su respuesta es:");
                     biglog('CORRECTA','green');
                 }else{
 					log('Su respuesta es:');
@@ -168,11 +168,20 @@ exports.playCmd = rl => {
 	let score = 0
 	let toBeResolved = [];
 
-	//if(){
-	//	rl.prompt();
-	//}else{
-		//let id = 
-	//}
+	for(let i=0; i<model.count(); i++){
+		toBeResolved[i]=i;
+		}
+
+	if(toBeResolved.length === 0){
+		log("Se han acabado las preguntas");
+		log("Fin del juego. Aciertos:");
+		biglog(score, 'magenta');
+		rl.prompt();
+	}else{
+		let id= Math.floor(Math.random()*toBeResolved.length);
+		toBeResolved.splice(id, 1);
+		let quiz = model.getByIndex(id);
+	}
 };
 
 /**
