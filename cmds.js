@@ -141,16 +141,15 @@ exports.testCmd = (rl, id) => {
 	}else {
 		try{
 			const quiz = model.getByIndex(id);
-			rl.question( colorize(quiz.question, 'red' ), answer =>{
-				if(answer === quiz.answer){
-					log('Su respuesta es:');
-					biglog('CORRECTA', 'green');
-					rl.prompt();
-				}else{
+			rl.question(`${colorize(quiz.question, 'red')} `, answer => {     
+                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                    log("Su respuesta es correcta");
+                    biglog('CORRECTA','green');
+                }else{
 					log('Su respuesta es:');
 					biglog('INCORRECTA', 'red');
-					rl.prompt();
 				}
+				rl.prompt();
 			});
 		}catch(error){
 			errorlog(error.message);
