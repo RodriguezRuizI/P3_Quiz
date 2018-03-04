@@ -179,9 +179,9 @@ exports.playCmd = rl => {
 			biglog(score, 'magenta');
 			rl.prompt();
 		}else{
-			let id= Math.floor(Math.random()*toBeResolved.length);
+			let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
 			let quiz = model.getByIndex(id);
-			toBeResolved.splice(id, 1);
+			toBeResolved.splice(toBeResolved.indexOf(id), 1);
 			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
                 if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                     score++;
@@ -208,7 +208,8 @@ exports.playCmd = rl => {
 */
 exports.creditsCmd = rl => {
     log('Autores de la práctica:');
-    log('Isabel', 'green');
+    log('Isabel Rodríguez Ruiz', 'green');
+    log('Jorge Calatayud Maeso', 'green');
     rl.prompt();
 };
 
