@@ -226,6 +226,7 @@ exports.playCmd = rl => {
                     if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                         score++;
                         log("Su respuesta es correcta.");
+                        log(`Numero de Aciertos: ${score}`);
                         biglog('CORRECTA','green');
                         playStart();
                     }else{
