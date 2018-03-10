@@ -1,1 +1,1 @@
-# Entrega 2 CORE: P2_Quiz
+# Entrega 2 CORE: P3_Quiz
