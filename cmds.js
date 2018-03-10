@@ -205,37 +205,41 @@ exports.playCmd = rl => {
             toBeResolved[i]=i+1;
         }
     }).then(() => {
-        playStart();
-    });
+       return playStart();
+    }).then(() => {
+        rl.prompt();
+    })
 
 
 	const playStart = () =>{
-        if (toBeResolved.length === 0) {
-            log(' ¡No hay preguntas que responder!','red');
-            log(' Fin del examen. Aciertos: ');
-            rl.prompt();
-        } else {
-            let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
-            toBeResolved.splice(toBeResolved.indexOf(id), 1);
-            validateId(id).then(id => models.quiz.findById(id)).then(quiz => {
-                if(!quiz){
-                    throw new Error(`No existe un quiz asociado al id ${id}`);
-                }
-                readQuestion(rl,`${quiz.question}: `).then(ans => {
-                    if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
-                        score++;
-                        log(`  CORRECTO - Lleva ${score} aciertos`);
-                        playStart();
-                    }else{
-                        log('  INCORRECTO ');
-                        log(`  Fin del juego. Aciertos: ${score} `);
-                        rl.prompt();
+	    return new Promise((resolve,reject) => {
+            if (toBeResolved.length === 0) {
+                log(' ¡No hay preguntas que responder!','red');
+                log(' Fin del examen. Aciertos: ');
+                resolve();
+            } else {
+                let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
+                toBeResolved.splice(toBeResolved.indexOf(id), 1);
+                validateId(id).then(id => models.quiz.findById(id)).then(quiz => {
+                    if(!quiz){
+                        throw new Error(`No existe un quiz asociado al id ${id}`);
                     }
+                    readQuestion(rl,`${quiz.question}: `).then(ans => {
+                        if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                            score++;
+                            log(`  CORRECTO - Lleva ${score} aciertos`);
+                            resolve(playStart());
+                        }else{
+                            log('  INCORRECTO ');
+                            log(`  Fin del juego. Aciertos: ${score} `);
+                            resolve();
+                        }
+                    });
+                }).catch(error => {
+                    errorlog(error);
                 });
-            }).catch(error => {
-                errorlog(error);
-            });
-        }
+            }
+        });
 	};
 };
 
