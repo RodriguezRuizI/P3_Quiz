@@ -230,7 +230,7 @@ exports.playCmd = rl => {
                         playStart();
                     }else{
                         log('INCORRECTO');
-                        log('Fin del juego. Aciertos:');
+                        log(`Fin del juego. Aciertos: ${score}`);
                         biglog(score, 'magenta');
                         rl.prompt();
                     }
