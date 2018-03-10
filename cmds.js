@@ -225,11 +225,12 @@ exports.playCmd = rl => {
                 readQuestion(rl,`${quiz.question}: `).then(ans => {
                     if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                         score++;
-                        log("CORRECTO - Lleva " + score + " aciertos.");
+                        log("Su respuesta es correcta.");
                         biglog('CORRECTA','green');
                         playStart();
                     }else{
-                        log('INCORRECTO');
+                        log('Su respuesta es incorrecta.');
+                        biglog('INCORRECTA', 'red');
                         log(`Fin del juego. Aciertos: ${score}`);
                         biglog(score, 'magenta');
                         rl.prompt();
