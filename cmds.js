@@ -215,7 +215,7 @@ exports.playCmd = rl => {
 	    return new Promise((resolve,reject) => {
             if (toBeResolved.length === 0) {
                 log(' ¡No hay preguntas que responder!','red');
-                log(' Fin del examen. Aciertos: ');
+                log(` Fin del examen. Aciertos: ${score} `);
                 resolve();
             } else {
                 let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
