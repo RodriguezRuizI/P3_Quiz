@@ -169,6 +169,7 @@ exports.editCmd = (rl, id) => {
 * @param id Clave del quiz a borrar en el modelo.
 */
 exports.testCmd = (rl, id) => {
+    //log('Probar el quiz indicado');
 
     validateId(id).then(id => models.quiz.findById(id)).then(quiz => {
         if(!quiz){
@@ -178,13 +179,17 @@ exports.testCmd = (rl, id) => {
             if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                 log("Su respuesta es correcta.");
                 biglog('CORRECTA','green');
+                rl.prompt();
             }else{
                 log('Su respuesta es incorrecta.');
                 biglog('INCORRECTA', 'red');
+                rl.prompt();
             }
-        }).then(() => {
-            rl.prompt();
         });
+    }).catch( error => {
+        errorlog(error.message);
+    }).then(() => {
+        rl.prompt();
     });
 };
 
@@ -226,7 +231,6 @@ exports.playCmd = rl => {
                         throw new Error(`No existe un quiz asociado al id ${id}`);
 
                     }
-                    process.stdout.isTTY && setTimeout(() => {rl.write(quiz.question)}, 0);
                     readQuestion(rl,`${quiz.question}: `).then(ans => {
                         if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                             score++;
