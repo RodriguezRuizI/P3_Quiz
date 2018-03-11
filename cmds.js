@@ -214,8 +214,8 @@ exports.playCmd = rl => {
 	const playStart = () =>{
 	    return new Promise((resolve,reject) => {
             if (toBeResolved.length === 0) {
-                log(' ¡No hay preguntas que responder!','red');
-                log(` Fin del examen. Aciertos: ${score} `);
+                console.log(' ¡No hay preguntas que responder!','red');
+                console.log(` Fin del examen. Aciertos: ${score} `);
                 resolve();
             } else {
                 let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
@@ -227,11 +227,11 @@ exports.playCmd = rl => {
                     readQuestion(rl,`${quiz.question}: `).then(ans => {
                         if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                             score++;
-                            log(`  CORRECTO - Lleva ${score} aciertos`);
+                            console.log(`  CORRECTO - Lleva ${score} aciertos`);
                             resolve(playStart());
                         }else{
-                            log('  INCORRECTO ');
-                            log(`  Fin del juego. Aciertos: ${score} `);
+                            console.log('  INCORRECTO ');
+                            console.log(`  Fin del juego. Aciertos: ${score} `);
                             resolve();
                         }
                     });
