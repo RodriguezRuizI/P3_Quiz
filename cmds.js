@@ -221,9 +221,9 @@ exports.playCmd = rl => {
                 let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
                 toBeResolved.splice(toBeResolved.indexOf(id), 1);
                 validateId(id).then(id => models.quiz.findById(id)).then(quiz => {
-                    if(!quiz){
+                    /*if(!quiz){
                         throw new Error(`No existe un quiz asociado al id ${id}`);
-                    }
+                    }*/
                     readQuestion(rl,`${quiz.question}: `).then(ans => {
                         if(ans.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
                             score++;
