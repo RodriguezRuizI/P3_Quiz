@@ -207,6 +207,7 @@ exports.playCmd = rl => {
     }).then(() => {
        return playStart();
     }).then(() => {
+        biglog(score,'blue');
         rl.prompt();
     })
 
