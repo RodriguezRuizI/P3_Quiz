@@ -44,7 +44,7 @@ exports.listCmd = rl => {
 const validateId = id =>{
     return new Sequalize.Promise((resolve,reject)=> {
         if(typeof id === "undefined") {
-            errorlog('Falta el parámetro id.');
+            reject(new Error(`Falta el parametro ID`));
         }else{
             id = parseInt(id);
             if(Number.isNaN(id)){
